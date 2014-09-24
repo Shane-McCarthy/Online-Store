@@ -1,0 +1,27 @@
+﻿
+html {}
+body {
+    background: #ffffff; 
+    /*C:\Users\can you dig it\Documents\Visual Studio 2012\Projects\AspIndAssignment1\Content\img\bg1.jpg*/
+background-image:  url("bg3.jpg");
+ background-repeat: no-repeat ;
+  background-position:right top;
+  min-height: 600px; 
+}
+.img_padding {
+    padding:5px; 
+}
+.navbar-footer {
+    position:relative; 
+    top: 300px; 
+}
+.navbar-default {
+background-color:#ffd800;  
+opacity:0.6;
+  filter:alpha(opacity=60); /* For IE8 and earlier */
+}
+#footer {
+     position:absolute;
+     bottom:0;
+     width:100%;
+}

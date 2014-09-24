@@ -1,0 +1,59 @@
+﻿@model AspIndAssignment1.ViewModel.Email
+
+@{
+    ViewBag.Title = "Email2";
+}
+
+<h2>Email2</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Email</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Sender)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Sender)
+            @Html.ValidationMessageFor(model => model.Sender)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Recipient)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Recipient)
+            @Html.ValidationMessageFor(model => model.Recipient)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Subject)
+            @Html.ValidationMessageFor(model => model.Subject)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Body)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Body)
+            @Html.ValidationMessageFor(model => model.Body)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="store_sModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="store_sModelStoreContainer">
+          <EntitySet Name="Product" EntityType="store_sModel.Store.Product" store:Type="Tables" Schema="ssddb_1admin" />
+          <EntitySet Name="ProductVisit" EntityType="store_sModel.Store.ProductVisit" store:Type="Tables" Schema="ssddb_1admin" />
+          <EntitySet Name="Visit" EntityType="store_sModel.Store.Visit" store:Type="Tables" Schema="ssddb_1admin" />
+          <AssociationSet Name="FK__ProductVi__produ__3B75D760" Association="store_sModel.Store.FK__ProductVi__produ__3B75D760">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductVisit" EntitySet="ProductVisit" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductVi__sessi__3A81B327" Association="store_sModel.Store.FK__ProductVi__sessi__3A81B327">
+            <End Role="Visit" EntitySet="Visit" />
+            <End Role="ProductVisit" EntitySet="ProductVisit" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="productID" />
+          </Key>
+          <Property Name="productID" Type="int" Nullable="false" />
+          <Property Name="productName" Type="varchar" MaxLength="255" />
+          <Property Name="price" Type="money" />
+          <Property Name="productDetail" Type="varchar" MaxLength="6000" />
+        </EntityType>
+        <EntityType Name="ProductVisit">
+          <Key>
+            <PropertyRef Name="sessionID" />
+            <PropertyRef Name="productID" />
+          </Key>
+          <Property Name="sessionID" Type="varchar" Nullable="false" MaxLength="44" />
+          <Property Name="productID" Type="int" Nullable="false" />
+          <Property Name="qtyOrdered" Type="int" />
+          <Property Name="updated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Visit">
+          <Key>
+            <PropertyRef Name="sessionID" />
+          </Key>
+          <Property Name="sessionID" Type="varchar" Nullable="false" MaxLength="44" />
+        </EntityType>
+        <Association Name="FK__ProductVi__produ__3B75D760">
+          <End Role="Product" Type="store_sModel.Store.Product" Multiplicity="1" />
+          <End Role="ProductVisit" Type="store_sModel.Store.ProductVisit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="productID" />
+            </Principal>
+            <Dependent Role="ProductVisit">
+              <PropertyRef Name="productID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductVi__sessi__3A81B327">
+          <End Role="Visit" Type="store_sModel.Store.Visit" Multiplicity="1" />
+          <End Role="ProductVisit" Type="store_sModel.Store.ProductVisit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visit">
+              <PropertyRef Name="sessionID" />
+            </Principal>
+            <Dependent Role="ProductVisit">
+              <PropertyRef Name="sessionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="store_sModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="store_sEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Products" EntityType="store_sModel.Product" />
+          <EntitySet Name="ProductVisits" EntityType="store_sModel.ProductVisit" />
+          <EntitySet Name="Visits" EntityType="store_sModel.Visit" />
+          <AssociationSet Name="FK__ProductVi__produ__3B75D760" Association="store_sModel.FK__ProductVi__produ__3B75D760">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductVisit" EntitySet="ProductVisits" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductVi__sessi__3A81B327" Association="store_sModel.FK__ProductVi__sessi__3A81B327">
+            <End Role="Visit" EntitySet="Visits" />
+            <End Role="ProductVisit" EntitySet="ProductVisits" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="productID" />
+          </Key>
+          <Property Name="productID" Type="Int32" Nullable="false" />
+          <Property Name="productName" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="productDetail" Type="String" MaxLength="6000" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="ProductVisits" Relationship="store_sModel.FK__ProductVi__produ__3B75D760" FromRole="Product" ToRole="ProductVisit" />
+        </EntityType>
+        <EntityType Name="ProductVisit">
+          <Key>
+            <PropertyRef Name="sessionID" />
+            <PropertyRef Name="productID" />
+          </Key>
+          <Property Name="sessionID" Type="String" Nullable="false" MaxLength="44" Unicode="false" FixedLength="false" />
+          <Property Name="productID" Type="Int32" Nullable="false" />
+          <Property Name="qtyOrdered" Type="Int32" />
+          <Property Name="updated" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Product" Relationship="store_sModel.FK__ProductVi__produ__3B75D760" FromRole="ProductVisit" ToRole="Product" />
+          <NavigationProperty Name="Visit" Relationship="store_sModel.FK__ProductVi__sessi__3A81B327" FromRole="ProductVisit" ToRole="Visit" />
+        </EntityType>
+        <EntityType Name="Visit">
+          <Key>
+            <PropertyRef Name="sessionID" />
+          </Key>
+          <Property Name="sessionID" Type="String" Nullable="false" MaxLength="44" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="ProductVisits" Relationship="store_sModel.FK__ProductVi__sessi__3A81B327" FromRole="Visit" ToRole="ProductVisit" />
+        </EntityType>
+        <Association Name="FK__ProductVi__produ__3B75D760">
+          <End Role="Product" Type="store_sModel.Product" Multiplicity="1" />
+          <End Role="ProductVisit" Type="store_sModel.ProductVisit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="productID" />
+            </Principal>
+            <Dependent Role="ProductVisit">
+              <PropertyRef Name="productID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductVi__sessi__3A81B327">
+          <End Role="Visit" Type="store_sModel.Visit" Multiplicity="1" />
+          <End Role="ProductVisit" Type="store_sModel.ProductVisit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visit">
+              <PropertyRef Name="sessionID" />
+            </Principal>
+            <Dependent Role="ProductVisit">
+              <PropertyRef Name="sessionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="store_sModelStoreContainer" CdmEntityContainer="store_sEntities3">
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="store_sModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="productID" ColumnName="productID" />
+                <ScalarProperty Name="productName" ColumnName="productName" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="productDetail" ColumnName="productDetail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductVisits">
+            <EntityTypeMapping TypeName="store_sModel.ProductVisit">
+              <MappingFragment StoreEntitySet="ProductVisit">
+                <ScalarProperty Name="sessionID" ColumnName="sessionID" />
+                <ScalarProperty Name="productID" ColumnName="productID" />
+                <ScalarProperty Name="qtyOrdered" ColumnName="qtyOrdered" />
+                <ScalarProperty Name="updated" ColumnName="updated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Visits">
+            <EntityTypeMapping TypeName="store_sModel.Visit">
+              <MappingFragment StoreEntitySet="Visit">
+                <ScalarProperty Name="sessionID" ColumnName="sessionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
